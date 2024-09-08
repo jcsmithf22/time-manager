@@ -1,5 +1,6 @@
 /node_modules/
 /.idea/
+.env
 
 ###> symfony/framework-bundle ###
 /.env.local
@@ -11,9 +12,7 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-###> symfony/webpack-encore-bundle ###
+###> pentatrion/vite-bundle ###
 /node_modules/
 /public/build/
-npm-debug.log
-yarn-error.log
-###< symfony/webpack-encore-bundle ###
+###< pentatrion/vite-bundle ###
