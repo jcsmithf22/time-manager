@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Bring down the old compose
+echo "Stopping Docker containers..."
+docker compose down --remove-orphans
+
 # Pull the latest from the git repository
 echo "Pulling the latest changes from git repository..."
 git pull origin main
