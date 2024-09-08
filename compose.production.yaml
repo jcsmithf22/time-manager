@@ -19,6 +19,11 @@ services:
       # The two next lines can be removed after initial installation
       SYMFONY_VERSION: ${SYMFONY_VERSION:-}
       STABILITY: ${STABILITY:-stable}
+      ports:
+        # HTTP
+        - target: 80
+          published: ${HTTP_PORT:-8001}
+          protocol: tcp
     volumes:
       - caddy_data:/data
       - caddy_config:/config
