@@ -6,7 +6,7 @@ docker compose down --remove-orphans
 
 # Pull the latest from the git repository
 echo "Pulling the latest changes from git repository..."
-git pull origin main
+git pull origin main || { echo "Git pull failed"; exit 1; }
 
 # Run Node.js build process
 echo "Running Node.js build process..."
