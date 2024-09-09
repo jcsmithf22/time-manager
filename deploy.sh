@@ -10,7 +10,7 @@ git pull origin main || { echo "Git pull failed"; exit 1; }
 
 # Run Node.js build process
 echo "Running Node.js build process..."
-docker run --rm -v ./:/app -w /app node:lts-alpine sh -c 'npm install; npm run build'
+docker run --rm -v ./:/app -w /app node:lts-alpine sh -c 'npm rm @symfony/stimulus-bridge; npm install; npm run build'
 
 # Remove node_modules directory
 echo "Removing node_modules directory..."
