@@ -15,6 +15,7 @@ docker run --rm -v ./:/app -w /app node:lts-alpine sh -c 'npm rm @symfony/stimul
 # Remove node_modules directory
 echo "Removing node_modules directory..."
 rm -rf './node_modules/'
+rm -rf './tailwind-compile-classes'
 
 # Build Docker images
 echo "Building Docker images..."
@@ -23,5 +24,7 @@ docker compose -f compose.yaml -f compose.prod.yaml build --no-cache
 # Start Docker containers
 echo "Starting Docker containers..."
 docker compose -f compose.yaml -f compose.prod.yaml up -d --wait
+
+git checkout .
 
 echo "Script execution completed."
