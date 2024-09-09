@@ -22,7 +22,8 @@ class SubmissionType extends AbstractType
             ->add('comments')
             ->add('entries', CollectionType::class, [
                 'entry_type' => EntryType::class,
-                'entry_options' => ['label' => false],
+                'allow_add' => true,
+                'allow_delete' => true,
             ])
 //            ->add('save', SubmitType::class, ['label' => 'Create Task'])
         ;

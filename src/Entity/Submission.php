@@ -34,7 +34,7 @@ class Submission
     /**
      * @var Collection<int, Entry>
      */
-    #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'submission', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'submission', cascade: ['persist'], orphanRemoval: true)]
     #[Assert\Valid]
     private Collection $entries;
 
