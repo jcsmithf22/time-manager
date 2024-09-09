@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.class_input_text,
+.class_input_range,
+.class_input_file,
+.class_input_radio,
+.class_input_checkbox,
+.class_input_switch {
+    /* Add your CSS properties here */
+    box-shadow: 0 2px 2px 0 rgba(9, 9, 11, 0.05) !important;
+}
