@@ -7,6 +7,7 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,14 +20,11 @@ class SubmissionType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('comments')
-            ->add('submitter', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'id',
-            ])
             ->add('entries', CollectionType::class, [
                 'entry_type' => EntryType::class,
                 'entry_options' => ['label' => false],
             ])
+//            ->add('save', SubmitType::class, ['label' => 'Create Task'])
         ;
     }
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EntryRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: EntryRepository::class)]
 class Entry
@@ -15,12 +16,17 @@ class Entry
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank]
     private ?string $task = null;
 
     #[ORM\Column]
+    #[Assert\Type('float')]
+    #[Assert\NotBlank]
     private ?float $hours_planned = null;
 
     #[ORM\Column]
+    #[Assert\Type('float')]
+    #[Assert\NotBlank]
     private ?float $hours_actual = null;
 
     #[ORM\ManyToOne(inversedBy: 'entries')]

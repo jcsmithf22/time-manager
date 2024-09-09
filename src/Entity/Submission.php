@@ -3,10 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\SubmissionRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: SubmissionRepository::class)]
 class Submission
@@ -17,7 +20,9 @@ class Submission
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $date = null;
+    #[Assert\NotBlank]
+    #[Assert\Type(DateTimeInterface::class)]
+    private ?DateTimeInterface $date = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $comments = null;
@@ -30,6 +35,7 @@ class Submission
      * @var Collection<int, Entry>
      */
     #[ORM\OneToMany(targetEntity: Entry::class, mappedBy: 'submission', orphanRemoval: true)]
+    #[Assert\Valid]
     private Collection $entries;
 
     public function __construct()
@@ -42,12 +48,12 @@ class Submission
         return $this->id;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate(): ?DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): static
+    public function setDate(?DateTimeInterface $date): static
     {
         $this->date = $date;
 
