@@ -1,6 +1,7 @@
 # Production environment override
 services:
   php:
+    image: jcsmithf22/time-manager:latest
     build:
       context: .
       target: frankenphp_prod
