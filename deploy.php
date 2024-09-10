@@ -1,7 +1,7 @@
 <?php
 
 // Exit the script if any command fails
-function executeCommand($command)
+function executeCommand($command): void
 {
     echo "Executing: $command\n";
 
@@ -77,7 +77,7 @@ $sshCommands = [
     "docker volume prune -f"
 ];
 
-$sshCommand = 'ssh ' . $sshUser . '@' . $sshHost . ' "' . implode(' && ', $sshCommands) . '"';
+$sshCommand = 'ssh -t ' . $sshUser . '@' . $sshHost . ' "' . implode(' && ', $sshCommands) . '"';
 executeCommand($sshCommand);
 
 echo "Deployment and cleanup completed successfully!\n";
