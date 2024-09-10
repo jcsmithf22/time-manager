@@ -12,7 +12,7 @@
 
 {% block body %}
     <div
-        class="mx-auto max-w-3xl sm:px-6 lg:px-8"
+        class="mx-auto max-w-3xl p-4 sm:px-6 lg:px-8"
         data-controller="submission"
         data-submission-index-value="{{ form.entries|length > 0 ? form.entries|last.vars.name + 1 : 0 }}"
         data-submission-prototype-value="{{ submission_prototype|raw|e('html_attr') }}"
@@ -21,13 +21,13 @@
         {{ form_row(form.date, {'attr': { 'class': 'max-w-xs'}}) }}
         {{ form_row(form.comments) }}
 
-        <h3 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+        <h3 class="block mb-2 sm:text-sm font-medium text-gray-900 dark:text-white">
             Entries</h3>
         <div
             class="overflow-hidden rounded-lg border border-gray-300 shadow-[0px_2px_2px_0px_rgba(9,9,11,0.05)] bg-white"
         >
             <div
-                class="w-full grid gap-3 md:grid-cols-4 p-3 bg-gray-50 text-sm">
+                class="w-full grid gap-3 md:grid-cols-4 p-3 bg-gray-50 sm:text-sm">
                 <div class="col-span-2">
                     Task
                 </div>
