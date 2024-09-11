@@ -1,14 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    Welcome to Time Management
-    {% for submission in submissions %}
-        <div>
-            <p>{{ submission.submitter.email }}</p>
-            <p>{{ submission.date|date('Y-m-d') }}</p>
-            {% for entry in submission.entries %}
-                <p>{{ entry.task }}</p>
-            {% endfor %}
-        </div>
-    {% endfor %}
+    <h1>Welcome to Time Management</h1>
+    {% if is_granted('ROLE_USER') %}
+        <p>Messages for {{ app.user.email }}</p>
+        {% for submission in submissions %}
+            <div>
+                <p>{{ submission.date|date('Y-m-d') }}</p>
+                {% for entry in submission.entries %}
+                    <p>{{ entry.task }}</p>
+                {% endfor %}
+                <a href="{{ path('app_submission_edit', {'id': submission.id}) }}">Edit</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Please <a href="{{ path('app_login') }}">log in</a></p>
+    {% endif %}
 {% endblock %}
