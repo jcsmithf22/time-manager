@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Repository\SubmissionRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -11,9 +12,16 @@ use Symfony\Component\Routing\Attribute\Route;
 class MainController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(): Response
+    public function index(SubmissionRepository $submissionRepository): Response
     {
-        return $this->render('main/index.html.twig');
+        $user = $this->getUser();
+        $submissions = $submissionRepository->findBy([
+            'submitter' => $user
+        ]);
+
+        return $this->render('main/index.html.twig', [
+            'submissions' => $submissions
+        ]);
     }
 
     #[Route('/about', name: 'about')]

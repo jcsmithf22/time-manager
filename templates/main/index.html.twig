@@ -2,4 +2,13 @@
 
 {% block body %}
     Welcome to Time Management
+    {% for submission in submissions %}
+        <div>
+            <p>{{ submission.submitter.email }}</p>
+            <p>{{ submission.date|date('Y-m-d') }}</p>
+            {% for entry in submission.entries %}
+                <p>{{ entry.task }}</p>
+            {% endfor %}
+        </div>
+    {% endfor %}
 {% endblock %}

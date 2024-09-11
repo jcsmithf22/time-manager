@@ -24,6 +24,7 @@ class SubmissionType extends AbstractType
                 'entry_type' => EntryType::class,
                 'allow_add' => true,
                 'allow_delete' => true,
+                'by_reference' => false,
             ])
 //            ->add('save', SubmitType::class, ['label' => 'Create Task'])
         ;
