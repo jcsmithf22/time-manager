@@ -60,14 +60,15 @@ if (isset($argv[1]) && $argv[1] === 'ssh') {
     runSSHCommands();
 } else {
     // Full deployment process
-    echo "Building JavaScript assets...\n";
-    executeCommand("npm run build");
+    echo "Compiling assets...\n";
+    executeCommand("php bin/console tailwind:build --minify");
+    executeCommand("php bin/console asset-map:compile");
 
     echo "Building the Docker image...\n";
     executeCommand("docker compose -f compose.yaml -f compose.prod.yaml build --no-cache");
 
     echo "Removing the public/build folder...\n";
-    executeCommand("rm -rf public/build");
+    executeCommand("rm -rf public/assets");
 
     echo "Tagging and pushing the Docker image to the registry...\n";
     executeCommand("docker tag $dockerImage $dockerImage:$imageTag");
