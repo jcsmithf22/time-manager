@@ -78,6 +78,15 @@
             "src/Kernel.php"
         ]
     },
+    "symfony/mail-pace-mailer": {
+        "version": "7.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "6.2",
+            "ref": "c222c121b5f5c81345a47398ecdc8fbb728d3578"
+        }
+    },
     "symfony/mailer": {
         "version": "7.1",
         "recipe": {

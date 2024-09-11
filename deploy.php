@@ -62,7 +62,7 @@ executeCommand("docker push $dockerImage");
 
 // Step 5: SSH into the server and update Docker Compose files
 echo "SSH into server and updating Docker Compose files...\n";
-executeCommand("scp compose.yaml compose.prod.yaml .env.local $sshUser@$sshHost:$remoteProjectPath/");
+executeCommand("scp compose.yaml compose.prod.yaml $sshUser@$sshHost:$remoteProjectPath/");
 
 // Step 6: SSH into the server to deploy the new version
 echo "Deploying the new version on the server...\n";
@@ -77,7 +77,7 @@ $sshCommands = [
     "docker volume prune -f"
 ];
 
-$sshCommand = 'ssh -t ' . $sshUser . '@' . $sshHost . ' "' . implode(' && ', $sshCommands) . '"';
+$sshCommand = 'ssh -tt ' . $sshUser . '@' . $sshHost . ' "' . implode(' && ', $sshCommands) . '"';
 executeCommand($sshCommand);
 
 echo "Deployment and cleanup completed successfully!\n";

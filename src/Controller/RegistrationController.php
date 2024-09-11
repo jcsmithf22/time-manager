@@ -18,9 +18,7 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends AbstractController
 {
-    public function __construct(private EmailVerifier $emailVerifier)
-    {
-    }
+    public function __construct(private EmailVerifier $emailVerifier) {}
 
     #[Route('/register', name: 'app_register')]
     public function register(
@@ -43,13 +41,13 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-//            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-//                (new TemplatedEmail())
-//                    ->from(new Address('mailer@timemanager.com', 'Time Manager'))
-//                    ->to((string) $user->getEmail())
-//                    ->subject('Please Confirm your Email')
-//                    ->htmlTemplate('registration/confirmation_email.html.twig')
-//            );
+            //            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+            //                (new TemplatedEmail())
+            //                    ->from(new Address('verification@josiahsmith.dev', 'Time Manager'))
+            //                    ->to((string) $user->getEmail())
+            //                    ->subject('Please Confirm your Email')
+            //                    ->htmlTemplate('registration/confirmation_email.html.twig')
+            //            );
 
             // do anything else you need here, like send an email
 
@@ -64,7 +62,7 @@ class RegistrationController extends AbstractController
     #[Route('/verify/email', name: 'app_verify_email')]
     public function verifyUserEmail(Request $request, UserRepository $userRepository): Response
     {
-//        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        //        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $id = $request->query->get('id');
 
         if (null === $id) {
@@ -81,8 +79,8 @@ class RegistrationController extends AbstractController
 
         // validate email confirmation link, sets User::isVerified=true and persists
         try {
-//            /** @var User $user */
-//            $user = $this->getUser();
+            //            /** @var User $user */
+            //            $user = $this->getUser();
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
             $this->addFlash('verify_email_error', $exception->getReason());
