@@ -1,15 +1,5 @@
-import {startStimulusApp, registerControllers} from "vite-plugin-symfony/stimulus/helpers";
+import { startStimulusApp } from '@symfony/stimulus-bundle';
 
-// Registers Stimulus controllers from controllers.json and in the controllers/ directory
 const app = startStimulusApp();
-registerControllers(
-  app,
-  import.meta.glob('./controllers/*_controller.js', {
-    query: "?stimulus",
-    /**
-     * always true, the `lazy` behavior is managed internally with
-     * import.meta.stimulusFetch (see reference)
-     */
-    eager: true,
-  })
-)
+// register any custom, 3rd party controllers here
+// app.register('some_controller_name', SomeImportedController);
