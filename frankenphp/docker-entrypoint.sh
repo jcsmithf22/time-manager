@@ -34,14 +34,15 @@ if [ "$1" = 'frankenphp' ] || [ "$1" = 'php' ] || [ "$1" = 'bin/console' ]; then
 	fi
 
 	# Check APP_ENV and set ACL permissions accordingly
-	if [ "$APP_ENV" = 'dev' ]; then
-		echo "Development environment detected. Setting ACL permissions for all folders except var/tailwind."
-		# Set ACL permissions only for var/cache and var/log
-		setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var/cache
-		setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var/cache
-		setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var/log
-		setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var/log
-	else
+	# if [ "$APP_ENV" = 'dev' ]; then
+	# 	echo "Development environment detected. Setting ACL permissions for all folders except var/tailwind."
+	# 	# Set ACL permissions only for var/cache and var/log
+	# 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var/cache
+	# 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var/cache
+	# 	setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var/log
+	# 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX var/log
+	# else
+	if [ "$APP_ENV" = 'prod' ]; then
 		echo "Production environment detected. Setting ACL permissions for the entire var directory."
 		# Set ACL permissions for the entire var directory
 		setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX var
