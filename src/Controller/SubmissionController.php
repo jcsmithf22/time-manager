@@ -4,12 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Entry;
 use App\Entity\Submission;
+use App\Entity\User;
 use App\Form\SubmissionType;
+use App\Repository\SubmissionRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class SubmissionController extends AbstractController
 {
@@ -17,6 +22,7 @@ class SubmissionController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $submission = new Submission();
+        $submission->setDate(new DateTime('now'));
         $submission->setSubmitter($this->getUser());
         $entry = new Entry();
         $submission->addEntry($entry);
@@ -30,9 +36,9 @@ class SubmissionController extends AbstractController
             $entityManager->persist($submission);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_submission_new', [], Response::HTTP_SEE_OTHER);
+            $this->addFlash('success', 'Submission successfully created.');
+            return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
         }
-
 
 
         return $this->render('submission/new.html.twig', [
@@ -42,8 +48,22 @@ class SubmissionController extends AbstractController
     }
 
     #[Route('/submission/{id}/edit', name: 'app_submission_edit')]
-    public function edit(Request $request, Submission $submission, EntityManagerInterface $entityManager): Response
-    {
+    public function edit(
+        Request $request,
+        int $id,
+        EntityManagerInterface $entityManager,
+        SubmissionRepository $submissionRepository,
+    ): Response {
+
+        $submission = $submissionRepository->findOneBy([
+            'id' => $id,
+            'submitter' => $this->getUser(),
+        ]);
+
+        if (!$submission) {
+            throw $this->createNotFoundException('Submission not found');
+        }
+
         $form = $this->createForm(SubmissionType::class, $submission);
         $form->handleRequest($request);
 
@@ -51,9 +71,8 @@ class SubmissionController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Your changes have been saved.');
-            return $this->redirectToRoute('app_submission_new', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
         }
-
 
 
         return $this->render('submission/edit.html.twig', [

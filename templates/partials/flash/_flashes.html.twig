@@ -1,0 +1,17 @@
+{% for message in app.flashes('info') %}
+    {% embed 'partials/flash/_template.html.twig' %}
+        {% block flash %}
+            {%- set type = "info" -%}
+            {{ parent() }}
+        {% endblock %}
+    {% endembed %}
+{% endfor %}
+
+{% for message in app.flashes('success') %}
+    {% embed 'partials/flash/_template.html.twig' %}
+        {% block flash %}
+            {%- set type = "success" -%}
+            {{ parent() }}
+        {% endblock %}
+    {% endembed %}
+{% endfor %}
