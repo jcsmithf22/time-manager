@@ -59,11 +59,6 @@ function runSSHCommands()
 if (isset($argv[1]) && $argv[1] === 'ssh') {
     runSSHCommands();
 } else {
-    // Full deployment process
-    echo "Compiling assets...\n";
-    executeCommand("php bin/console tailwind:build --minify");
-    executeCommand("php bin/console asset-map:compile");
-
     echo "Building the Docker image...\n";
     executeCommand("docker compose -f compose.yaml -f compose.prod.yaml build --no-cache");
 

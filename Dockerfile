@@ -90,6 +90,10 @@ COPY --link . ./
 RUN rm -Rf frankenphp/
 
 RUN set -eux; \
+	php bin/console tailwind:build --minify; \
+	php bin/console asset-map:compile;
+
+RUN set -eux; \
 	mkdir -p var/cache var/log; \
 	composer dump-autoload --classmap-authoritative --no-dev; \
 	composer dump-env prod; \
