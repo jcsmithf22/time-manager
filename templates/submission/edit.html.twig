@@ -5,11 +5,16 @@
 
 {% block body %}
     <div
-        class="mx-auto max-w-4xl p-4 sm:px-6 lg:px-8"
+        class="mx-auto max-w-4xl p-4 sm:px-6 lg:px-8 mb-4"
     >
         <div>
-            <h1 class="text-2xl my-8">Edit Submission</h1>
+            <h1 class="text-2xl my-8">Edit <span class="page-heading">Submission</span></h1>
         </div>
         {{ include('submission/_form.html.twig') }}
     </div>
+{% endblock %}
+
+
+{% block body_background %}
+	bg-green-50
 {% endblock %}

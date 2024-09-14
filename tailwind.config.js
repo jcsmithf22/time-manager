@@ -8,7 +8,11 @@ module.exports = {
     "./templates/**/*.html.twig",
   ],
   theme: {
-    extend: {},
+    extend: {
+    	boxShadow: {
+    		main: "0 2px 2px 0 rgba(9, 9, 11, 0.05)"
+    	}
+    },
   },
   plugins: [require('@tailwindcss/forms')],
 }

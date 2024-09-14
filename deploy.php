@@ -1,4 +1,5 @@
 <?php
+
 // Exit the script if any command fails
 function executeCommand($command): void
 {
@@ -52,6 +53,7 @@ function runSSHCommands()
     ];
     $sshCommand = 'ssh -tt ' . $sshUser . '@' . $sshHost . ' "' . implode(' && ', $sshCommands) . '"';
     executeCommand($sshCommand);
+	
     echo "Deployment and cleanup completed successfully!\n";
 }
 
@@ -61,7 +63,8 @@ if (isset($argv[1]) && $argv[1] === 'ssh') {
 } else {
     echo "Building the Docker image...\n";
     executeCommand("docker compose -f compose.yaml -f compose.prod.yaml build --no-cache");
-
+	
+	
     echo "Removing the public/build folder...\n";
     executeCommand("rm -rf public/assets");
 

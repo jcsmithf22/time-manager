@@ -24,6 +24,7 @@
 .github/
 docs/
 public/bundles/
+node_modules/
 tests/
 var/
 vendor/
@@ -32,3 +33,5 @@ vendor/
 .env.local
 .env.local.php
 .env.test
+package.json
+package-lock.json

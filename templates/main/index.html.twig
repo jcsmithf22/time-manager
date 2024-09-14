@@ -1,21 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Welcome to Time Management</h1>
-    {% if is_granted('ROLE_USER') %}
-        <p>Messages for {{ app.user.email }}</p>
-        {% for submission in submissions %}
-            <div>
-                <p>{{ submission.date|date('Y-m-d') }}</p>
-                {% for entry in submission.entries %}
-                    <p>{{ entry.task }}</p>
-                {% endfor %}
-                <a href="{{ path('app_submission_edit', {'id': submission.id}) }}">Edit</a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>Please <a
-                href="{{ path('app_login') }}">log
-                in</a></p>
-    {% endif %}
+	<div class="mx-auto max-w-4xl p-4 sm:px-6 lg:px-8">
+        <div>
+            <h1 class="text-2xl my-8"><span class="page-heading">Submission</span>s</h1>
+        </div>
+	    {% if is_granted('ROLE_USER') %}
+	        <p class="text-gray-600 mb-6">This week's submissions for <span class="text-fuchsia-500">{{ app.user.email }}</span></p>
+			<div class="space-y-6">
+		        {% for submission in submissions %}
+		            <div class="overflow-hidden rounded-lg bg-white shadow-main border border-gray-300">
+				        <div
+				            class="w-full p-1 pl-3 bg-gray-50 sm:text-sm flex justify-between items-center">
+							<div class="">
+								{{ submission.date|date("l, F jS Y") }}
+							</div>
+							<div class="flex-shrink-0">
+								<a
+									href="{{ path('app_submission_edit', {'id': submission.id}) }}"
+									class="block relative focus:outline-none text-white bg-blue-700 hover:bg-blue-800 border border-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-[6px] text-sm px-3 py-2 sm:py-2 before:pointer-events-none before:absolute before:inset-0 before:rounded-[5px] before:shadow-[0px_1px_0px_0px_#3B82F6_inset] hover:before:shadow-[0px_1px_0px_0px_#2563EB_inset]"
+								>
+								Edit
+								</a>
+							</div>
+				        </div>
+						<ul class="">
+			                {% for entry in submission.entries %}
+			                    <li class="p-3 border-t border-gray-300">{{ entry.task }}</li>
+			                {% endfor %}
+						</ul>
+		            </div>
+		        {% endfor %}
+			</div>
+	    {% else %}
+	        <p>Please <a
+	                href="{{ path('app_login') }}">log
+	                in</a></p>
+	    {% endif %}
+	</div>
+{% endblock %}
+
+{% block body_background %}
+	bg-blue-50
 {% endblock %}
