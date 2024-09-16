@@ -25,9 +25,10 @@
     </head>
     <body class="min-h-screen {% block body_background_disabled %}bg-gray-100{% endblock %}">
         {% include 'partials/_sidebar.html.twig' %}
+        {% include 'partials/_navigation.html.twig' %}
         {% include 'partials/flash/_flashes.html.twig' %}
 
-        <div class="ml-[230px]">
+        <div class="sm:ml-[230px]">
             {% block body %}
 
             {% endblock %}
