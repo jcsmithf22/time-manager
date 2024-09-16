@@ -1,47 +1,62 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class="mx-auto max-w-4xl p-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-4xl p-4 sm:px-6 lg:px-8">
         <div>
-            <h1 class="text-2xl my-8"><span class="page-heading">Submission</span>s</h1>
+            <h1 class="text-2xl my-8">
+                <span class="page-heading">Submission</span>s
+            </h1>
         </div>
-	    {% if is_granted('ROLE_USER') %}
-	        <p class="text-gray-600 mb-6">This week's submissions for <span class="text-fuchsia-500">{{ app.user.email }}</span></p>
-			<div class="space-y-6">
-		        {% for submission in submissions %}
-		            <div class="overflow-hidden rounded-lg bg-white shadow-main border border-gray-300">
-				        <div
-				            class="w-full p-1 pl-3 bg-gray-50 sm:text-sm flex justify-between items-center">
-							<div class="">
-								{{ submission.date|date("l, F jS Y") }}
-							</div>
-							<div class="flex-shrink-0">
-								<a
-									href="{{ path('app_submission_edit', {'id': submission.id}) }}"
-									class="block p-1.5 hover:bg-gray-200 rounded-[6px] text-gray-600"
-								>
-									<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
-									  <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
-									</svg>
-								</a>
-							</div>
-				        </div>
-						<ul class="text-sm">
-			                {% for entry in submission.entries %}
-			                    <li class="p-3 border-t border-gray-300 text-gray-600">{{ entry.task }}</li>
-			                {% endfor %}
-						</ul>
-		            </div>
-		        {% endfor %}
-			</div>
-	    {% else %}
-	        <p>Please <a
-	                href="{{ path('app_login') }}">log
-	                in</a></p>
-	    {% endif %}
-	</div>
+        {% if is_granted('ROLE_USER') %}
+            <p class="text-gray-600 mb-6">
+                This week's submissions for <span class="text-fuchsia-500">{{app.user.email}}</span>
+            </p>
+            <div class="space-y-6">
+                {% for submission in submissions %}
+                    <div class="overflow-hidden rounded-lg bg-white shadow-main border border-gray-300">
+                        <div class="w-full p-1 pl-3 bg-gray-50 sm:text-sm flex justify-between items-center">
+                            <div class="">
+                                {{ submission.date|date('l, F jS Y') }}
+                            </div>
+                            <div class="flex-shrink-0">
+                                <a href="{{
+                                    path(
+                                        'app_submission_edit',
+                                        { id: submission.id }
+                                    )
+                                    }}"
+                                    class="block p-1.5 hover:bg-gray-200 rounded-[6px] text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="h-5 w-5">
+                                        <path stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                        <ul class="text-sm">
+                            {% for entry in submission.entries %}
+                                <li class="p-3 border-t border-gray-300 text-gray-600">
+                                    {{ entry.task }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>
+                Please <a href="{{ path('app_login') }}">log in</a>
+            </p>
+        {% endif %}
+    </div>
 {% endblock %}
 
 {% block body_background %}
-	bg-blue-50
+    bg-blue-50
 {% endblock %}

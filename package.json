@@ -1,5 +1,7 @@
 {
   "devDependencies": {
+    "@zackad/prettier-plugin-twig": "^0.8.0",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.11"
   }
 }

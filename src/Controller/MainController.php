@@ -17,6 +17,8 @@ class MainController extends AbstractController
         $user = $this->getUser();
         $submissions = $submissionRepository->findBy([
             'submitter' => $user
+        ], [
+        	'date' => 'ASC', 'id' => 'ASC'
         ]);
 
         return $this->render('main/index.html.twig', [

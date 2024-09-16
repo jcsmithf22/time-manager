@@ -1,0 +1,133 @@
+{% set currentPath = app.request.pathInfo %}
+
+{% set defaultClasses =
+    'px-6 py-3 relative text-sm flex gap-x-2 items-center'
+%}
+{# {% set selectedClasses = "text-blue-600" %} #}
+{% set unselectedClasses = 'text-gray-600' %}
+{% set hoverClass = 'hover:text-gray-800' %}
+
+{% if currentPath == '/' %}
+    {% set hoverClass = 'hover:text-blue-600' %}
+{% elseif currentPath == '/about' %}
+    {% set hoverClass = 'hover:text-fuchsia-600' %}
+{% elseif '/submission' in currentPath %}
+    {% set hoverClass = 'hover:text-green-600' %}
+{% endif %}
+
+<div class="fixed top-4 left-4 bottom-4">
+    <nav class="text-sm text-medium flex flex-col gap-y-4 h-full">
+        <div class="shadow-main rounded-lg bg-white py-3 border border-gray-200">
+            <a href="{{ path('index') }}"
+                class="text-lg font-semibold my-3 flex gap-x-3 items-center mx-6">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-alarm-clock bg-black stroke-white p-1.5 h-8 w-8 rounded-full">
+                    <circle cx="12" cy="13" r="8" />
+                    <path d="M12 9v4l2 2" />
+                    <path d="M5 3 2 6" />
+                    <path d="m22 6-3-3" />
+                    <path d="M6.38 18.7 4 21" />
+                    <path d="M17.64 18.67 20 21" />
+                </svg>Time Manager
+            </a>
+        </div>
+        <div class="flex flex-col shadow-main rounded-lg bg-white py-3 border border-gray-200">
+            <a href="{{ path('index') }}"
+                class="{{
+                currentPath == '/'
+                    ? 'text-blue-600'
+                    : unselectedClasses
+                }} {{ defaultClasses }} {{ hoverClass }}">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-house">
+                    <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                    <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                </svg>Home{% if currentPath == '/' %}
+                    <span class="absolute inset-y-1 -left-px w-px bg-gradient-to-b from-blue-600/0 via-blue-600/50 to-blue-600/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0 nav-highlight">
+
+                    </span>
+                {% endif %}
+            </a>
+            <a href="{{ path('app_submission_new') }}"
+                class="{{
+                '/submission' in currentPath
+                    ? 'text-green-600'
+                    : unselectedClasses
+                }} {{ defaultClasses }} {{ hoverClass }}">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-file-text">
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                    <path d="M10 9H8" />
+                    <path d="M16 13H8" />
+                    <path d="M16 17H8" />
+                </svg>Submit{% if '/submission' in currentPath %}
+                    <span class="absolute inset-y-1 -left-px w-px bg-gradient-to-b from-green-600/0 via-green-600/50 to-green-600/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0 nav-highlight">
+
+                    </span>
+                {% endif %}
+            </a>
+            <a href="{{ path('about') }}"
+                class="{{
+                currentPath == '/about'
+                    ? 'text-fuchsia-600'
+                    : unselectedClasses
+                }} {{ defaultClasses }} {{ hoverClass }}">
+                <svg xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-info">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 16v-4" />
+                    <path d="M12 8h.01" />
+                </svg>About{% if currentPath == '/about' %}
+                    <span class="absolute inset-y-1 -left-px w-px bg-gradient-to-b from-fuchsia-600/0 via-fuchsia-600/50 to-fuchsia-600/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0 nav-highlight">
+
+                    </span>
+                {% endif %}
+            </a>
+        </div>
+        <div class="flex-1"></div>
+        <div class="flex flex-col shadow-main rounded-lg bg-white py-3 border border-gray-200 px-4">
+            {% if app.user %}
+                <a class="hover:text-gray-600" href="{{ path('app_logout') }}">
+                    Logout
+                </a>
+            {% else %}
+                <a class="hover:text-gray-600" href="{{ path('app_login') }}">
+                    Login
+                </a>
+            {% endif %}
+        </div>
+    </nav>
+</div>

@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Entry;
 use App\Entity\Submission;
-use App\Entity\User;
 use App\Form\SubmissionType;
 use App\Repository\SubmissionRepository;
 use DateTime;
@@ -13,12 +12,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class SubmissionController extends AbstractController
 {
-    #[Route('/submission/new', name: 'app_submission_new')]
+    #[Route('/submission/new', name: 'app_submission_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $submission = new Submission();
@@ -32,7 +29,7 @@ class SubmissionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // ... do your form processing, like saving the Task and Tag entities
-//            dd($submission);
+            //            dd($submission);
             $entityManager->persist($submission);
             $entityManager->flush();
 
@@ -47,7 +44,7 @@ class SubmissionController extends AbstractController
         ]);
     }
 
-    #[Route('/submission/{id}/edit', name: 'app_submission_edit')]
+    #[Route('/submission/{id}/edit', name: 'app_submission_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
         int $id,
@@ -77,7 +74,35 @@ class SubmissionController extends AbstractController
 
         return $this->render('submission/edit.html.twig', [
             'controller_name' => 'SubmissionController',
+            'submission' => $submission,
             'form' => $form,
         ]);
+
+    }
+
+    #[Route('/submission/{id}/delete', name: 'app_submission_delete', methods: ['POST'])]
+    public function delete(
+        Request $request,
+        int $id,
+        EntityManagerInterface $entityManager,
+        SubmissionRepository $submissionRepository,
+    ): Response {
+        $submission = $submissionRepository->findOneBy([
+            'id' => $id,
+            'submitter' => $this->getUser(),
+        ]);
+
+        if (!$submission) {
+            throw $this->createNotFoundException('Submission not found');
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$submission->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($submission);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Submission deleted');
+        }
+
+        return $this->redirectToRoute('index', [], Response::HTTP_SEE_OTHER);
     }
 }

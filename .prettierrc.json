@@ -1,0 +1,5 @@
+{
+    "tabWidth": 4,
+    "twigAlwaysBreakObjects": false,
+    "plugins": ["@zackad/prettier-plugin-twig"]
+}
