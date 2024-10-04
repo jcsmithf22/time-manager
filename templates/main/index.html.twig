@@ -13,8 +13,8 @@
             </p>
             <div class="space-y-6">
                 {% for submission in submissions %}
-                    <div class="overflow-hidden rounded-lg bg-white shadow-main border border-gray-300">
-                        <div class="w-full p-1 pl-3 bg-gray-50 sm:text-sm flex justify-between items-center">
+                    <div class="overflow-hidden rounded-xl bg-gray-50 p-1">
+                        <div class="w-full p-1 pl-3 sm:text-sm flex justify-between items-center">
                             <div class="">
                                 {{ submission.date|date('l, F jS Y') }}
                             </div>
@@ -39,9 +39,9 @@
                                 </a>
                             </div>
                         </div>
-                        <ul class="text-sm">
+                        <ul class="text-sm rounded-lg overflow-hidden border border-gray-200 shadow-main">
                             {% for entry in submission.entries %}
-                                <li class="p-3 border-t border-gray-300 text-gray-600">
+                                <li class="p-3 first:border-0 border-t bg-white text-gray-600">
                                     {{ entry.task }}
                                 </li>
                             {% endfor %}

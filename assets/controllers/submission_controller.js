@@ -1,22 +1,26 @@
-import {Controller} from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["collectionContainer"];
+    static targets = ["collectionContainer"];
 
-  static values = {
-    index: Number,
-    prototype: String,
-  };
+    static values = {
+        index: Number,
+        prototype: String,
+    };
 
-  addCollectionElement(event) {
-    const item = document.createElement('li');
-    const classes = "w-full grid gap-3 md:grid-cols-9 p-3 border-t border-gray-300 -mb-3".split(' ');
-    item.classList.add(...classes);
-    item.innerHTML = this.prototypeValue.replace(/__name__/g, this.indexValue);
-    this.collectionContainerTarget.appendChild(item);
-    this.indexValue++;
-  }
+    addCollectionElement(event) {
+        const item = document.createElement("li");
+        const classes = "w-full grid gap-3 md:grid-cols-9 px-3".split(" ");
+        item.classList.add(...classes);
+        item.innerHTML = this.prototypeValue.replace(
+            /__name__/g,
+            this.indexValue,
+        );
+        this.collectionContainerTarget.appendChild(item);
+        this.indexValue++;
+    }
 
-  remove(event) {
-    event.currentTarget.closest('li').remove();
-  }}
+    remove(event) {
+        event.currentTarget.closest("li").remove();
+    }
+}

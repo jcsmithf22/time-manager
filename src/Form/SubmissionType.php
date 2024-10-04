@@ -3,13 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Submission;
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class SubmissionType extends AbstractType
 {
@@ -26,8 +25,16 @@ class SubmissionType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ])
+            ->addEventListener(FormEvents::PRE_SUBMIT, [$this, 'onPreSubmit'])
 //            ->add('save', SubmitType::class, ['label' => 'Create Task'])
         ;
+    }
+
+    public function onPreSubmit(FormEvent $event)
+    {
+        $data = $event->getData();
+        $data['entries'] = array_values($data['entries']);
+        $event->setData($data);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

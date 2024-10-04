@@ -1,8 +1,8 @@
-<div class="hidden sm:block fixed top-4 left-4 bottom-4">
-    <nav class="text-sm text-medium flex flex-col gap-y-4 h-full shadow-main rounded-lg bg-white py-3 border border-gray-200">
+<div class="hidden sm:block fixed top-0 left-0 bottom-0">
+    <nav class="text-sm text-medium flex flex-col gap-y-2 h-full shadow-main bg-white py-2 border-r border-gray-200">
         <div>
             <a href="{{ path('index') }}"
-                class="text-lg font-semibold my-3 flex gap-x-3 items-center mx-6">
+                class="text-lg font-semibold my-2 flex gap-x-3 items-center mx-6">
                 <svg xmlns="http://www.w3.org/2000/svg"
                     width="24"
                     height="24"
@@ -22,7 +22,7 @@
                 </svg>Time Manager
             </a>
         </div>
-        <div class="flex-1 border-t border-t-gray-200 pt-3">
+        <div class="flex-1 border-t border-t-gray-200 pt-2">
             <twig:SidebarLink link="index">
                 <twig:ux:icon name="lucide:home" class="h-5 w-5" />Home
             </twig:SidebarLink>
@@ -38,7 +38,7 @@
                     class="h-5 w-5 animate-spin" />Progress
             </twig:SidebarLink>
         </div>
-        <div class="pt-3 border-t border-t-gray-200 flex flex-col flex-shrink-0">
+        <div class="pt-2 border-t border-t-gray-200 flex flex-col flex-shrink-0">
             {% if app.user %}
                 <twig:SidebarLink link="app_profile">
                     <twig:ux:icon name="lucide:user" class="h-5 w-5" />Profile

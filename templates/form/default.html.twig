@@ -1,9 +1,13 @@
-{% use '@TalesFromADevFlowbite/form/default.html.twig' %}
+{% use "@TalesFromADevFlowbite/form/default.html.twig" %}
 
 {% block class_input_text -%}
-    text-gray-900 bg-gray-50 rounded-lg sm:text-sm block w-full p-2.5 border border-gray-300 focus:z-10 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500 shadow-[0px_2px_2px_0px_rgba(9,9,11,0.05)]
-{%- endblock class_input_text %}
+    text-gray-900 bg-gray-50 rounded-lg sm:text-sm block w-full p-2.5 focus:z-10
+    border border-gray-50 focus:ring-blue-500 focus:border-blue-500
+    dark:bg-gray-700 dark:border-gray-600 dark:text-white
+    dark:placeholder-gray-400 dark:focus:ring-blue-500
+    dark:focus:border-blue-500
+{%- endblock %}
 
 {% block class_label -%}
     block mb-2 sm:text-sm font-medium text-gray-900 dark:text-white
-{%- endblock class_label %}
+{%- endblock %}
