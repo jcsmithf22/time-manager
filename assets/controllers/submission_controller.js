@@ -10,7 +10,7 @@ export default class extends Controller {
 
     addCollectionElement(event) {
         const item = document.createElement("li");
-        const classes = "w-full grid gap-3 md:grid-cols-9 px-3".split(" ");
+        const classes = "w-full grid gap-3 md:grid-cols-9".split(" ");
         item.classList.add(...classes);
         item.innerHTML = this.prototypeValue.replace(
             /__name__/g,
